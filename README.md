@@ -82,27 +82,38 @@ Query 4: Who are the top 10 customers per total sales?
 Key feature to show is AS. Group by and limit will be used in order to return Customer and Amount. 
 
 ```
-SELECT first_name, last_name, SUM(amount)
+SELECT first_name AS "First Name", last_name AS "Last Name", SUM(amount) AS "Amount"
 FROM customer
 JOIN payment on customer.customer_id=payment.customer_id
 GROUP BY first_name, last_name
-ORDER BY SUM(amount) desc
+ORDER BY "Amount" desc
 LIMIT 10
 ```
- 
-
-
-
-
 
 ## To know about films
 Query 5: Who are the top 10 most popular actors on the rank? 
 
 Key feature to show is Inner join. Order by will also be used to return Actors and Rental Rate.
+```
+SELECT first_name, last_name, (SUM (rental_rate)) AS "Rental Rate"
+FROM actor a
+JOIN film_actor fc ON a.actor_id=fc.actor_id
+JOIN film ON fc.film_id=film.film_id
+GROUP BY first_name, last_name
+ORDER BY "Rental Rate" desc
+Limit 10
+```
 
 Query 6: What are the top 10 films rented? 
 
 Key feature to show is limit. Order by will be also used to return Films and Rental Rate
+```
+SELECT title AS "Films"
+FROM film
+GROUP BY "Films"
+ORDER BY SUM(rental_rate) desc
+Limit 10
+```
 
 
 Query 7: What are the top 3 genres and what are their total sales?
