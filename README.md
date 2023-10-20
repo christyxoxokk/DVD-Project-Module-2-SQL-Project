@@ -37,13 +37,19 @@ Query 1: Where are the customers coming from?
 
 Key feature to show is Distinct. Inner join will also be used to return Country.
 
+
+```
+-- Prompt: 
 SELECT DISTINCT(country) AS "Country", COUNT (country) AS "Customer Amount"  
 FROM country
 JOIN city on city.country_id=country.country_id
 JOIN address on address.city_id=city.city_id
 JOIN customer on customer.address_id=address.address_id
 GROUP BY DISTINCT(country)
-ORDER BY Country asc
+ORDER BY Country asc;
+```
+
+
 
 Query 2: What countries own the highest sales revenue?  
 Key feature to show is Order by. 
