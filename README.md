@@ -39,7 +39,6 @@ Key feature to show is Distinct. Inner join will also be used to return Country.
 
 
 ```
--- Prompt: 
 SELECT DISTINCT(country) AS "Country", COUNT (country) AS "Customer Amount"  
 FROM country
 JOIN city on city.country_id=country.country_id
@@ -49,23 +48,47 @@ GROUP BY DISTINCT(country)
 ORDER BY Country asc;
 ```
 
-
-
 Query 2: What countries own the highest sales revenue?  
 Key feature to show is Order by. 
 Inner join will also be used to return Country and Sales Revenue.
 
+```
+SELECT DISTINCT(country) AS "Country", SUM (amount) AS "Sales Revenue"  
+FROM country
+JOIN city on city.country_id=country.country_id
+JOIN address on address.city_id=city.city_id
+JOIN customer on customer.address_id=address.address_id
+JOIN payment on payment.customer_id=customer.customer_id
+GROUP BY DISTINCT(country)
+ORDER BY "Sales Revenue" desc
+```
+
 Query 3: What countries have the largest customer base? 
 
-Key feature to show is Group by. Inner join will also be used to return Country and Customer Base.
+Key feature to show is Group by. Inner join will also be used to return Country and Customer Amount.
+
+```
+SELECT DISTINCT(country) AS "Country", COUNT (country) AS "Customer Amount"  
+FROM country
+JOIN city on city.country_id=country.country_id
+JOIN address on address.city_id=city.city_id
+JOIN customer on customer.address_id=address.address_id
+GROUP BY DISTINCT(country)
+ORDER BY "Customer Amount" desc;
+```
 
 Query 4: Who are the top 10 customers per total sales? 
 
 Key feature to show is AS. Group by and limit will be used in order to return Customer and Amount. 
 
-
-
-
+```
+SELECT first_name, last_name, SUM(amount)
+FROM customer
+JOIN payment on customer.customer_id=payment.customer_id
+GROUP BY first_name, last_name
+ORDER BY SUM(amount) desc
+LIMIT 10
+```
  
 
 
