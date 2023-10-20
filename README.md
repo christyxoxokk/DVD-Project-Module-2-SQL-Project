@@ -1,7 +1,10 @@
 
 # DVD Rental Database Analysis for SQL Project
 
-In the project, we look into the DVD Rental Database and investigate the total of 10 queries in order to generate some insightful business conclusion.
+In this project, we look into the DVD Rental Database and investigate a total of 10 queries in order to generate some insightful business conclusions.
+
+![App Screenshot](https://www.google.com/imgres?imgurl=https%3A%2F%2Fdinosaurdracula.com%2Fwp-content%2Fuploads%2F2017%2F02%2F1-3.jpg&tbnid=o83eYLOa_84w-M&vet=12ahUKEwjE4rG23oOCAxV0VDUKHTXFDbEQMygBegQIARBS..i&imgrefurl=https%3A%2F%2Fdinosaurdracula.com%2Fblog%2Fold-video-store%2F&docid=RkqsCmgvXHvfFM&w=640&h=675&q=vintage%20dvd%20stores&ved=2ahUKEwjE4rG23oOCAxV0VDUKHTXFDbEQMygBegQIARBS)
+
 
 The DVD rental database represents the business processes of a DVD rental store. The DVD rental database has many objects, including: 
 
@@ -47,6 +50,7 @@ ORDER BY Country asc;
 ```
 
 Query 2: What countries own the highest sales revenue?  
+
 Key feature to show is Order by. 
 Inner join will also be used to return Country and Sales Revenue.
 
@@ -107,7 +111,7 @@ From the above, some interesting facts are derived from the top 10. The rank cou
 
 Query 6: What are the top 10 films rented? 
 
-Key feature to show is limit. Order by will be also used to return Films and Rental Rate
+Key feature to show is Limit. Order by will be also used to return Films and Rental Rate
 ```
 SELECT title AS "Films"
 FROM film
@@ -115,9 +119,10 @@ GROUP BY "Films"
 ORDER BY SUM(rental_rate) desc
 Limit 10
 ```
-From the above, top 10 films which are highly popularized among customers are listed. Staff can hence suggest valid recommendations to customers. 
+From the above, top 10 films that are highly popularized among customers are listed. Staff can hence suggest valid recommendations to customers. 
 
 Query 7: What are the top 3 genres and what are their total sales?
+
 Inner Join will be used. Group by and  in order to return Genres and Total Sales.
 ```
 SELECT name AS "Genres", SUM (amount) AS "Total Sales"
@@ -148,6 +153,7 @@ From the above, after calculating the average rate of rental, it is highlighted 
 
 ## To know about stores
 Query 9: Which store is making more sales? 
+
 Key feature to show is the Group by to return Store and amount.
 ```
 SELECT store.store_id AS "Store", SUM (payment.amount)
@@ -160,6 +166,7 @@ ORDER BY SUM (payment.amount) desc
 Through Group by, joining the tables and summing up the payment amount, it is observed that store 2 has a higher sales amount, in order words having a better performance.
 
 Query 10: Which store has higher free rental films rented?
+
 Key feature is to show Count.
 ```
 SELECT store.store_id AS "Store", COUNT (payment.amount=0)
@@ -169,11 +176,11 @@ FULL JOIN payment ON staff.staff_id=payment.staff_id
 GROUP BY store.store_id
 ORDER BY store.store_id desc
 ```
-Through joining the tables and counting the payment amount equals to 0, it is shown that store 2 has more films full-of-charge rented. 
+By joining the tables and counting the payment amount equal to 0, it is shown that store 2 has more films full-of-charge rented. 
 
 ## Download the PostgreSQL sample database
 
-The above database could be downloaded via the link here: 
+The above database can be downloaded via the link here: 
 
 https://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip
 
