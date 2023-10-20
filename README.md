@@ -1,5 +1,3 @@
-# DVD-Project-Module-2-SQL-Project
-
 
 # DVD Rental Database Analysis for SQL Project
 
@@ -33,7 +31,7 @@ There are 15 tables in the DVD Rental database:
 - city – stores city names.
 - country – stores country names.
 ## To know about customers
-Query 1: Where are the customers coming from? 
+Query 1: What countries are the customers coming from? 
 
 Key feature to show is Distinct. Inner join will also be used to return Country.
 
@@ -76,6 +74,7 @@ JOIN customer on customer.address_id=address.address_id
 GROUP BY DISTINCT(country)
 ORDER BY "Customer Amount" desc;
 ```
+From Query 1,2 and 3, knowing the origin of the customer base and its profits generating, staff could act on producing some cultural-related events to promote the stores since they have a clear picture of the target audience.
 
 Query 4: Who are the top 10 customers per total sales? 
 
@@ -89,6 +88,7 @@ GROUP BY first_name, last_name
 ORDER BY "Amount" desc
 LIMIT 10
 ```
+After getting the top 10 customers, rewards could be given and hence developing loyalty programs to retain customers.
 
 ## To know about films
 Query 5: Who are the top 10 most popular actors on the rank? 
@@ -103,6 +103,7 @@ GROUP BY first_name, last_name
 ORDER BY "Rental Rate" desc
 Limit 10
 ```
+From the above, some interesting facts are derived from the top 10. The rank could be utilised to draw potential customers' interests.  
 
 Query 6: What are the top 10 films rented? 
 
@@ -114,25 +115,62 @@ GROUP BY "Films"
 ORDER BY SUM(rental_rate) desc
 Limit 10
 ```
-
+From the above, top 10 films which are highly popularized among customers are listed. Staff can hence suggest valid recommendations to customers. 
 
 Query 7: What are the top 3 genres and what are their total sales?
-
 Inner Join will be used. Group by and  in order to return Genres and Total Sales.
-
+```
+SELECT name AS "Genres", SUM (amount) AS "Total Sales"
+FROM category
+JOIN film_category ON category.category_id=film_category.category_id
+JOIN film ON film_category.film_id=film.film_id
+JOIN inventory ON film.film_id=inventory.film_id
+JOIN rental ON inventory.inventory_id=rental.inventory_id
+JOIN payment ON rental.customer_id=payment.customer_id
+GROUP BY "Genres"
+ORDER BY "Total Sales" desc
+```
+Through joining relevant tables and querying through the sum of the amount, the result shows that "Sports", 
+"Animation" and "Action" are the most profit-earning films. 
 
 Query 8: What is the average rental rate for each genre? 
 
 Key feature is to show Average. Inner join and Group by will also be used to return Genre and Average Rental Rate.
+```
+SELECT name AS "Genres", AVG (rental_rate) AS "Average Rental Rate"
+FROM category
+JOIN film_category ON category.category_id=film_category.category_id
+JOIN film ON film_category.film_id=film.film_id
+GROUP BY "Genres"
+ORDER BY "Average Rental Rate" desc
+```
+From the above, after calculating the average rate of rental, it is highlighted that "Games" has the highest average rental rate, in order words it is the most popular Genre among all.  
 
-
-Query 9: Is a film with higher rating contribute to a higher rental rate?
-
-Aggregate function average will be used to return 
 ## To know about stores
-Query 8: Which store is making more sales? 
+Query 9: Which store is making more sales? 
+Key feature to show is the Group by to return Store and amount.
+```
+SELECT store.store_id AS "Store", SUM (payment.amount)
+FROM store
+JOIN staff ON staff.store_id=store.store_id
+JOIN payment ON staff.staff_id=payment.staff_id
+GROUP BY "Store"
+ORDER BY SUM (payment.amount) desc
+```
+Through Group by, joining the tables and summing up the payment amount, it is observed that store 2 has a higher sales amount, in order words having a better performance.
 
-Key feature to show is the Group by to return Store and Sales.
+Query 10: Which store has higher free rental films rented?
+Key feature is to show Count.
+```
+SELECT store.store_id AS "Store", COUNT (payment.amount=0)
+FROM store
+JOIN staff ON staff.store_id=store.store_id
+FULL JOIN payment ON staff.staff_id=payment.staff_id
+GROUP BY store.store_id
+ORDER BY store.store_id desc
+```
+Through joining the tables and counting the payment amount equals to 0, it is shown that store 2 has more films full-of-charge rented. 
+
 ## Download the PostgreSQL sample database
 
 The above database could be downloaded via the link here: 
